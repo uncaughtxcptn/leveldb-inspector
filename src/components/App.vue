@@ -1,9 +1,9 @@
 <template>
-  <h1>HELLO WORLD</h1>
+  <h1>LevelDB Inspector</h1>
 </template>
 
 <style>
 body {
-  background-color: red;
+  background-color: yellow;
 }
 </style>
