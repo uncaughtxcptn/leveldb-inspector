@@ -38,8 +38,7 @@ const rendererProcessConfig = {
   entry: './src/renderer-process.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'renderer-process.js',
-    publicPath: './'
+    filename: 'renderer-process.js'
   },
   mode,
   module: {
@@ -47,11 +46,18 @@ const rendererProcessConfig = {
       ...commonRules,
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        loader: 'vue-loader'
       },
       {
         test: /\.css$/,
         use: ['vue-style-loader', 'css-loader']
+      },
+      {
+        test: /\.(jpe?g|png|svg)$/,
+        loader: 'file-loader',
+        options: {
+          esModule: false
+        }
       }
     ]
   },
