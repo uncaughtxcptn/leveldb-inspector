@@ -12,7 +12,7 @@
   "keywords": [
     "leveldb"
   ],
-  "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com/)",
+  "author": "UncaughtException <uncaughtexception.blog@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.8.4",
@@ -30,5 +30,13 @@
   },
   "dependencies": {
     "vue": "2.6.11"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uncaughtxcptn/leveldb-inspector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uncaughtxcptn/leveldb-inspector/issues"
+  },
+  "homepage": "https://github.com/uncaughtxcptn/leveldb-inspector#readme"
 }
