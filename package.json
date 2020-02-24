@@ -2,13 +2,21 @@
   "name": "leveldb-inspector",
   "version": "1.0.0",
   "description": "A user interface for interacting with LevelDB databases",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "keywords": [
     "leveldb"
   ],
   "author": "Arnelle Balane <arnellebalane@gmail.com> (https://arnellebalane.com/)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "7.8.4",
+    "@babel/preset-env": "7.8.4",
+    "babel-loader": "8.0.6",
+    "webpack": "4.41.6",
+    "webpack-cli": "3.3.11"
+  }
 }
