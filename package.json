@@ -2,7 +2,7 @@
   "name": "leveldb-inspector",
   "version": "1.0.0",
   "description": "A user interface for interacting with LevelDB databases",
-  "main": "dist/main.js",
+  "main": "dist/main-process.js",
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
@@ -25,5 +25,8 @@
     "webpack": "4.41.6",
     "webpack-cli": "3.3.11",
     "webpack-node-externals": "1.7.2"
+  },
+  "dependencies": {
+    "vue": "2.6.11"
   }
 }
