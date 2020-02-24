@@ -1,6 +1,7 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 const mode = isProd ? 'production' : 'development';
@@ -24,6 +25,9 @@ const mainProcessConfig = {
   },
   target: 'node',
   externals: nodeExternals(),
+  node: {
+    __dirname: false
+  },
   mode,
   module: {
     rules: commonRules
@@ -35,7 +39,7 @@ const rendererProcessConfig = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'renderer-process.js',
-    publicPath: '/'
+    publicPath: './'
   },
   mode,
   module: {
@@ -51,7 +55,13 @@ const rendererProcessConfig = {
       }
     ]
   },
-  plugins: [new VueLoaderPlugin()]
+  plugins: [
+    new VueLoaderPlugin(),
+
+    new HtmlWebpackPlugin({
+      template: './src/template.html'
+    })
+  ]
 };
 
 module.exports = [mainProcessConfig, rendererProcessConfig];
