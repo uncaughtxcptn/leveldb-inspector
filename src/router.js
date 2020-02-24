@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    component: () => import('./pages/Home.vue')
+    component: () => import('@pages/Home.vue')
   }
 ];
 
