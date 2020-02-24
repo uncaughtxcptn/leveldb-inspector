@@ -41,5 +41,15 @@
   "bugs": {
     "url": "https://github.com/uncaughtxcptn/leveldb-inspector/issues"
   },
-  "homepage": "https://github.com/uncaughtxcptn/leveldb-inspector#readme"
+  "homepage": "https://github.com/uncaughtxcptn/leveldb-inspector#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,vue,html,css}": [
+      "prettier --write"
+    ]
+  }
 }
