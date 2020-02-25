@@ -45,7 +45,7 @@ form {
 }
 
 .file input {
-  min-width: 25em;
+  min-width: 35em;
   margin: 0;
   filter: alpha(opacity=0);
   opacity: 0;
