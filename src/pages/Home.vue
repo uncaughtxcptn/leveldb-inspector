@@ -41,11 +41,11 @@ form {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  height: 2.5rem;
+  height: 2.5em;
 }
 
 .file input {
-  min-width: 25rem;
+  min-width: 25em;
   margin: 0;
   filter: alpha(opacity=0);
   opacity: 0;
@@ -57,14 +57,14 @@ form {
   right: 0;
   left: 0;
   z-index: 5;
-  height: 2.5rem;
-  padding: 0.5rem 1rem;
+  height: 2.5em;
+  padding: 0.5em 1em;
   line-height: 1.5;
   color: #555;
   background-color: #fff;
-  border: 0.075rem solid #ddd;
-  border-radius: 0.25rem;
-  box-shadow: inset 0 0.2rem 0.4rem rgba(0, 0, 0, 0.05);
+  border: 0.075em solid #ddd;
+  border-radius: 0.25em;
+  box-shadow: inset 0 0.2em 0.4em rgba(0, 0, 0, 0.05);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -77,24 +77,24 @@ form {
 
 .file-custom:before {
   position: absolute;
-  top: -0.075rem;
-  right: -0.075rem;
-  bottom: -0.075rem;
+  top: -0.075em;
+  right: -0.075em;
+  bottom: -0.075em;
   z-index: 6;
   display: block;
   content: 'Choose';
-  height: 2.5rem;
-  padding: 0.5rem 1rem;
+  height: 2.5em;
+  padding: 0.5em 1em;
   line-height: 1.5;
   color: #555;
   background-color: #fff;
-  border: 0.075rem solid #ddd;
-  border-radius: 0 0.35rem 0.35rem 0;
+  border: 0.075em solid #ddd;
+  border-radius: 0 0.35em 0.35em 0;
 }
 
 /* Focus */
 .file input:focus ~ .file-custom {
-  box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.2rem #0074d9;
+  box-shadow: 0 0 0 0.075em #fff, 0 0 0 0.2em #0074d9;
 }
 
 .db-path {
@@ -103,12 +103,12 @@ form {
 
 input[type='submit'] {
   font-size: 1em;
-  height: 2.5rem;
-  padding: 0.5rem 2rem;
+  height: 2.5em;
+  padding: 0.5em 2em;
   line-height: 1.5;
   color: #fff;
   background-color: #5b73ff;
-  border-radius: 0.35rem;
+  border-radius: 0.35em;
 }
 
 footer {
