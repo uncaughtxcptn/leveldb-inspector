@@ -37,10 +37,6 @@ form {
   flex-direction: column;
 }
 
-/*
- * http://wtfforms.com/
- */
-
 .file {
   position: relative;
   display: inline-block;
