@@ -1,11 +1,18 @@
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
+import { enableDBConnect } from './LevelDBIntegration';
 
 function createWindow() {
   let win = new BrowserWindow({
     width: 800,
-    height: 800
+    height: 800,
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
+
+  // enable leveldb integration features
+  enableDBConnect();
 
   win.loadFile(path.resolve(__dirname, 'index.html'));
 }

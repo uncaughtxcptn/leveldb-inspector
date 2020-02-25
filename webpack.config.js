@@ -61,6 +61,7 @@ const rendererProcessConfig = {
       }
     ]
   },
+  target: 'electron-renderer',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
