@@ -9,9 +9,9 @@
         <input type="file" id="file" aria-label="File browser example" />
         <span class="file-custom"></span>
       </label>
-      <input type="submit" value="Inspect" />
+      <button>Inspect</button>
     </form>
-    <footer>Copyright 2020 • UncaughtException</footer>
+    <footer>Copyright {{ new Date().getFullYear() }} • UncaughtException</footer>
   </main>
 </template>
 
@@ -47,7 +47,6 @@ form {
 .file input {
   min-width: 35em;
   margin: 0;
-  filter: alpha(opacity=0);
   opacity: 0;
 }
 
@@ -65,17 +64,10 @@ form {
   border: 0.075em solid #ddd;
   border-radius: 0.25em;
   box-shadow: inset 0 0.2em 0.4em rgba(0, 0, 0, 0.05);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
-.file-custom:after {
-  content: '';
-}
-
-.file-custom:before {
+.file-custom::before {
   position: absolute;
   top: -0.075em;
   right: -0.075em;
@@ -101,7 +93,7 @@ form {
   margin-bottom: 2em;
 }
 
-input[type='submit'] {
+button {
   font-size: 1em;
   height: 2.5em;
   padding: 0.5em 2em;
