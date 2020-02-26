@@ -3,14 +3,25 @@ import level from 'level';
 
 // global store for db connections
 const dbStore = {};
+const levelOpenDefaults = {
+  path: './',
+  createIfMissing: false,
+  valueEncoding: 'json',
+  ipcEvent: null
+};
 
 /**
  * This method will connect to a leveldb database and store a reference to dbStore.
  * Note that leveldb only allows a single connection at a time so you need to
  * explicitly close the connection to allow other processes to access it.
  */
-function connectToLevelDb(path, createIfMissing = false, valueEncoding = 'json', ipcEvent = null) {
+function connectToLevelDb(options) {
+  const { path, createIfMissing, valueEncoding, ipcEvent } = { ...levelOpenDefaults, ...options };
   if (path in dbStore && dbStore[path].isOpen()) {
+    ipcEvent.returnValue = {
+      status: 'success',
+      path: path
+    };
     return dbStore[path];
   }
 
@@ -24,7 +35,6 @@ function connectToLevelDb(path, createIfMissing = false, valueEncoding = 'json',
               ? 'Failed to open the database, make sure the database exists or is not opened by another process'
               : err.toString()
         };
-        console.error(err);
       } else {
         console.error(err);
       }
@@ -32,8 +42,7 @@ function connectToLevelDb(path, createIfMissing = false, valueEncoding = 'json',
       if (ipcEvent) {
         ipcEvent.returnValue = {
           status: 'success',
-          path: path,
-          value
+          path: path
         };
       } else {
         console.log(`Sucessfully connected to ${path}`);
@@ -46,7 +55,7 @@ function connectToLevelDb(path, createIfMissing = false, valueEncoding = 'json',
 
 function enableDBConnect() {
   ipcMain.on('connect-to-leveldb', (event, params) => {
-    connectToLevelDb(params.path, params.createIfMissing || false, params.valueEncoding || 'json', event);
+    connectToLevelDb({ ...params, ipcEvent: event });
   });
 }
 
