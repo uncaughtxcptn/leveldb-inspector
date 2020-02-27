@@ -1,6 +1,6 @@
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
-import { enableDBConnect } from './LevelDBIntegration';
+import { enableDBConnect, enableGetKeys, enableGetValue } from './LevelDBIntegration';
 
 function createWindow() {
   let win = new BrowserWindow({
@@ -13,6 +13,8 @@ function createWindow() {
 
   // enable leveldb integration features
   enableDBConnect();
+  enableGetKeys();
+  enableGetValue();
 
   win.loadFile(path.resolve(__dirname, 'index.html'));
 }
