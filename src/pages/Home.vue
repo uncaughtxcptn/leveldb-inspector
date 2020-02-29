@@ -6,14 +6,55 @@
     <form>
       <p>Select path to LevelDB</p>
       <label class="file db-path">
-        <input type="file" id="file" aria-label="File browser example" />
-        <span class="file-custom"></span>
+        <input type="text" id="file" webkitdirectory />
+        <span class="file-custom" @click="selectPath">{{ path }}</span>
       </label>
-      <button>Inspect</button>
+      <button @click="connect">Inspect</button>
     </form>
     <footer>Copyright {{ new Date().getFullYear() }} • UncaughtException</footer>
   </main>
 </template>
+
+<script>
+  import { ipcRenderer, remote } from 'electron';
+
+  export default {
+    data() {
+      return {
+        path: ''
+      };
+    },
+    methods: {
+      connect(e) {
+        e.preventDefault();
+        const response = ipcRenderer.sendSync('connect-to-leveldb', {
+          path: this.path,
+          createIfMissing: false,
+          valueEncoding: 'json'
+        });
+
+        if (response.status === 'success') {
+          // TODO: this should open the next page
+          alert('success');
+        } else {
+          // TODO: We need a place to display this error message
+          alert(
+            response.message ||
+              'Failed to open the database. Please make sure the database exists or is not opened by another process.'
+          );
+        }
+      },
+      selectPath(e) {
+        const path = remote.dialog.showOpenDialog({
+          properties: ['openDirectory']
+        });
+        path.then(e => {
+          this.path = e.filePaths[0];
+        });
+      }
+    }
+  };
+</script>
 
 <style scoped>
 main {
