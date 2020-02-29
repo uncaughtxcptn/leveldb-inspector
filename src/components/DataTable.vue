@@ -8,26 +8,11 @@
     </thead>
 
     <tbody>
-      <tr>
-        <td>sampleKeyOne</td>
-        <td>true</td>
+      <tr v-for="item in items" :key="item.key">
+        <td>{{ item.key }}</td>
+        <td>{{ item.value }}</td>
       </tr>
-      <tr>
-        <td>sampleKeyTwo</td>
-        <td>"Hello World"</td>
-      </tr>
-      <tr>
-        <td>sampleKeyTwo</td>
-        <td>"Hello World"</td>
-      </tr>
-      <tr>
-        <td>sampleKeyTwo</td>
-        <td>"Hello World"</td>
-      </tr>
-      <tr>
-        <td>sampleKeyTwo</td>
-        <td>"Hello World"</td>
-      </tr>
+
       <tr class="spacer">
         <td></td>
         <td></td>
@@ -36,13 +21,38 @@
   </table>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      items: [
+        {
+          key: 'sampleKeyOne',
+          value: true
+        },
+        {
+          key: 'sampleKeyTwo',
+          value: 'Hello World'
+        },
+        {
+          key: 'sampleKeyThree',
+          value: [1, 2, 3, 4, 5]
+        },
+        {
+          key: 'sampleKeyFour',
+          value: { a: 1, b: 2, c: { d: 4 } }
+        }
+      ]
+    };
+  }
+};
+</script>
+
 <style scoped>
 table {
   width: 100%;
   min-height: 100vh;
   border-collapse: collapse;
-
-  font-family: 'Fira Code';
 }
 
 thead tr {
