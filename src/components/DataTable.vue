@@ -24,25 +24,13 @@
 <script>
 export default {
   data() {
+    const items = new Array(100).fill(null).map((_, i) => ({
+      key: `sampleKey${i}`,
+      value: { a: 1, b: 2, c: { d: 4 } }
+    }));
+
     return {
-      items: [
-        {
-          key: 'sampleKeyOne',
-          value: true
-        },
-        {
-          key: 'sampleKeyTwo',
-          value: 'Hello World'
-        },
-        {
-          key: 'sampleKeyThree',
-          value: [1, 2, 3, 4, 5]
-        },
-        {
-          key: 'sampleKeyFour',
-          value: { a: 1, b: 2, c: { d: 4 } }
-        }
-      ]
+      items
     };
   }
 };
