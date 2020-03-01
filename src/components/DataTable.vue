@@ -58,16 +58,16 @@ th {
 
 th,
 td {
-  height: 32px;
-  padding: 0 24px;
+  height: 2.67em;
+  padding: 0 2em;
 
-  font-size: 12px;
+  font-size: 0.75em;
   text-align: left;
 }
 
 th:first-child,
 td:first-child {
-  width: 260px;
+  width: 21.67em;
   border-right: 1px solid #bbbbbb;
 }
 
