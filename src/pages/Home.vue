@@ -27,10 +27,20 @@ export default {
   methods: {
     connect(e) {
       e.preventDefault();
+<<<<<<< HEAD
       const response = ipcRenderer.sendSync('connect-to-leveldb', {
         path: this.path,
         createIfMissing: false,
         valueEncoding: 'json'
+=======
+      const response = ipcRenderer.sendSync('leveldb-command', {
+        command: 'connect',
+        params: {
+          path: this.path,
+          createIfMissing: false,
+          valueEncoding: 'text'
+        }
+>>>>>>> Use only 1 ipc channel for leveldb queries
       });
 
       if (response.status === 'success') {
