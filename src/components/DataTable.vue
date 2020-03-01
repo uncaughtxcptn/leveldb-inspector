@@ -26,7 +26,7 @@ export default {
   data() {
     const items = new Array(100).fill(null).map((_, i) => ({
       key: `sampleKey${i}`,
-      value: { a: 1, b: 2, c: { d: 4 } }
+      value: { a: 1, b: 2, c: { d: 4, e: { a: 1, b: 2, c: { d: 4 } } } }
     }));
 
     return {
@@ -63,6 +63,11 @@ td {
 
   font-size: 0.75em;
   text-align: left;
+
+  max-width: 0; /* required for ellipsis overflow to work */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 th:first-child,
