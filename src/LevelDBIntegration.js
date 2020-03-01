@@ -80,18 +80,18 @@ function getOpenedDB(path, ipcEvent) {
 }
 
 /*
- * List the keys inside the leveldb database.
+ * List the keys and values inside the leveldb database.
  */
-function getKeys(options) {
+function getKeyValues(options) {
   const { path, ipcEvent } = { path: './', ipcEvent: null, ...options };
   const db = getOpenedDB(path, ipcEvent);
   if (!db) {
     return;
   }
-  const keys = [];
-  db.createKeyStream()
-    .on('data', key => {
-      keys.push(key);
+  const data = {};
+  db.createReadStream()
+    .on('data', res => {
+      data[res.key] = res.value;
     })
     .on('error', function(err) {
       console.log(err);
@@ -106,10 +106,10 @@ function getKeys(options) {
       if (ipcEvent) {
         ipcEvent.returnValue = {
           status: 'success',
-          keys
+          data
         };
       } else {
-        console.log(`Keys in ${path}: ${keys}`);
+        console.log(`Values in ${path}: ${data}`);
       }
     });
 }
@@ -155,22 +155,25 @@ function getValue(options) {
   });
 }
 
-function enableDBConnect() {
-  ipcMain.on('connect-to-leveldb', (event, params) => {
-    connectToLevelDb({ ...params, ipcEvent: event });
+function enableLevelDB() {
+  ipcMain.on('leveldb-command', (event, eventParams) => {
+    switch (eventParams.command) {
+      case 'connect':
+        connectToLevelDb({ ...eventParams.params, ipcEvent: event });
+        break;
+      case 'get-key-values':
+        getKeyValues({ ...eventParams.params, ipcEvent: event });
+        break;
+      case 'get-value':
+        getValue({ ...eventParams.params, ipcEvent: event });
+        break;
+      default:
+        event.returnValue = {
+          status: 'failed',
+          message: 'Invalid command'
+        };
+    }
   });
 }
 
-function enableGetKeys() {
-  ipcMain.on('get-db-keys', (event, params) => {
-    getKeys({ ...params, ipcEvent: event });
-  });
-}
-
-function enableGetValue() {
-  ipcMain.on('get-value-by-key', (event, params) => {
-    getValue({ ...params, ipcEvent: event });
-  });
-}
-
-export { enableDBConnect, enableGetKeys, enableGetValue };
+export { enableLevelDB };
