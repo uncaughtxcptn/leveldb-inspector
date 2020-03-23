@@ -27,12 +27,6 @@ export default {
   methods: {
     connect(e) {
       e.preventDefault();
-<<<<<<< HEAD
-      const response = ipcRenderer.sendSync('connect-to-leveldb', {
-        path: this.path,
-        createIfMissing: false,
-        valueEncoding: 'json'
-=======
       const response = ipcRenderer.sendSync('leveldb-command', {
         command: 'connect',
         params: {
@@ -40,7 +34,6 @@ export default {
           createIfMissing: false,
           valueEncoding: 'text'
         }
->>>>>>> Use only 1 ipc channel for leveldb queries
       });
 
       if (response.status === 'success') {
@@ -90,6 +83,7 @@ form {
 
 input,
 button {
+  font-family: 'Fira Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   cursor: pointer;
 }
 
@@ -114,7 +108,7 @@ button {
 }
 
 .file > input {
-  width: 25em;
+  width: 30em;
   padding: 0.5em 1em;
 
   border: 0.075em solid #ddd;
