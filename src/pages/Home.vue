@@ -90,7 +90,6 @@ form {
 
 input,
 button {
-  font-family: 'Fira Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   cursor: pointer;
 }
 
@@ -115,7 +114,7 @@ button {
 }
 
 .file > input {
-  width: 30em;
+  width: 25em;
   padding: 0.5em 1em;
 
   border: 0.075em solid #ddd;
