@@ -83,7 +83,6 @@ form {
 
 input,
 button {
-  font-family: 'Fira Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   cursor: pointer;
 }
 
