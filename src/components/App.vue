@@ -21,4 +21,10 @@ input {
   font: inherit;
   color: inherit;
 }
+
+input,
+button {
+  font: inherit;
+  color: inherit;
+}
 </style>
