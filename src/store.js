@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { ipcRenderer } from 'electron';
+import forIn from 'lodash/forIn';
 
 Vue.use(Vuex);
 
@@ -54,7 +55,11 @@ const actions = {
     if (status === 'failed') {
       return { success: false, error: message };
     }
-    commit('setData', data);
+
+    const keyValues = [];
+    forIn(data, (value, key) => keyValues.push({ key, value }));
+
+    commit('setData', keyValues);
     return { success: true, data };
   }
 };
