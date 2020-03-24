@@ -30,8 +30,12 @@ export default {
     ...mapActions(['connectToDatabase']),
 
     async connect() {
-      const success = await this.connectToDatabase(this.path);
-      console.log(success);
+      const { error } = await this.connectToDatabase(this.path);
+      if (error) {
+        alert(error);
+      } else {
+        this.$router.push('/inspector');
+      }
     },
 
     selectPath(e) {

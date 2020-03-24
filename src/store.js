@@ -16,7 +16,7 @@ const mutations = {
 
 const actions = {
   connectToDatabase({ commit }, path) {
-    const response = ipcRenderer.sendSync('leveldb-command', {
+    const { status, message } = ipcRenderer.sendSync('leveldb-command', {
       command: 'connect',
       params: {
         path,
@@ -25,11 +25,11 @@ const actions = {
       }
     });
 
-    if (response.status === 'success') {
-      commit('setPath', path);
-      return true;
+    if (status === 'failed') {
+      return { success: false, error: message };
     }
-    return false;
+    commit('setPath', path);
+    return { success: true };
   }
 };
 
