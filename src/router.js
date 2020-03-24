@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from './store';
 
 import Home from '@pages/Home.vue';
 import Inspector from '@pages/Inspector.vue';
@@ -13,7 +14,13 @@ const routes = [
   },
   {
     path: '/inspector',
-    component: Inspector
+    component: Inspector,
+    beforeEnter(routeTo, routeFrom, next) {
+      if (!store.getters.isConnected) {
+        next('/');
+      }
+      next();
+    }
   }
 ];
 

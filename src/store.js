@@ -5,12 +5,23 @@ import { ipcRenderer } from 'electron';
 Vue.use(Vuex);
 
 const state = {
-  path: null
+  path: null,
+  data: []
+};
+
+const getters = {
+  isConnected(state) {
+    return state.path !== null;
+  }
 };
 
 const mutations = {
   setPath(state, path) {
     state.path = path;
+  },
+
+  setData(state, data) {
+    state.data = data;
   }
 };
 
@@ -35,6 +46,7 @@ const actions = {
 
 export default new Vuex.Store({
   state,
+  getters,
   mutations,
   actions
 });
