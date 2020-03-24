@@ -41,6 +41,21 @@ const actions = {
     }
     commit('setPath', path);
     return { success: true };
+  },
+
+  getDatabaseContents({ state, commit }) {
+    const { status, data, message } = ipcRenderer.sendSync('leveldb-command', {
+      command: 'get-key-values',
+      params: {
+        path: state.path
+      }
+    });
+
+    if (status === 'failed') {
+      return { success: false, error: message };
+    }
+    commit('setData', data);
+    return { success: true, data };
   }
 };
 

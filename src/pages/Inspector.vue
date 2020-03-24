@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import DataTable from '@components/DataTable.vue';
 
 export default {
@@ -14,7 +14,14 @@ export default {
   },
 
   computed: {
+    ...mapState(['data']),
     ...mapGetters(['isConnected'])
+  },
+
+  methods: mapActions(['getDatabaseContents']),
+
+  async created() {
+    await this.getDatabaseContents();
   }
 };
 </script>
