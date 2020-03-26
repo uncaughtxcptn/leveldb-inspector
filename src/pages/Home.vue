@@ -3,20 +3,21 @@
     <header>
       <div class="logo"></div>
     </header>
-    <form>
+    <form @submit.prevent="connect">
       <p>Select path to LevelDB</p>
       <label class="file db-path">
         <input type="text" id="file" webkitdirectory />
         <span class="file-custom" @click="selectPath">{{ path }}</span>
       </label>
-      <button @click="connect">Inspect</button>
+      <button>Inspect</button>
     </form>
     <footer>Copyright {{ new Date().getFullYear() }} • UncaughtException</footer>
   </main>
 </template>
 
 <script>
-import { ipcRenderer, remote } from 'electron';
+import { remote } from 'electron';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -24,29 +25,19 @@ export default {
       path: ''
     };
   },
-  methods: {
-    connect(e) {
-      e.preventDefault();
-      const response = ipcRenderer.sendSync('leveldb-command', {
-        command: 'connect',
-        params: {
-          path: this.path,
-          createIfMissing: false,
-          valueEncoding: 'text'
-        }
-      });
 
-      if (response.status === 'success') {
-        // TODO: this should open the next page
-        alert('success');
+  methods: {
+    ...mapActions(['connectToDatabase']),
+
+    async connect() {
+      const { error } = await this.connectToDatabase(this.path);
+      if (error) {
+        alert(error);
       } else {
-        // TODO: We need a place to display this error message
-        alert(
-          response.message ||
-            'Failed to open the database. Please make sure the database exists or is not opened by another process.'
-        );
+        this.$router.push('/inspector');
       }
     },
+
     selectPath(e) {
       const path = remote.dialog.showOpenDialog({
         properties: ['openDirectory']

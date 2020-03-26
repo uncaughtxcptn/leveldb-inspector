@@ -23,15 +23,11 @@
 
 <script>
 export default {
-  data() {
-    const items = new Array(100).fill(null).map((_, i) => ({
-      key: `sampleKey${i}`,
-      value: { a: 1, b: 2, c: { d: 4, e: { a: 1, b: 2, c: { d: 4 } } } }
-    }));
-
-    return {
-      items
-    };
+  props: {
+    items: {
+      type: Array,
+      default: () => []
+    }
   }
 };
 </script>
