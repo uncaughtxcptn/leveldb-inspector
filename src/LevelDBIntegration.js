@@ -79,6 +79,39 @@ function getOpenedDB(path, ipcEvent) {
   return db;
 }
 
+/**
+ * Close an open connection to a leveldb database
+ */
+function closeDB(options) {
+  const { path, ipcEvent } = { path: './', ipcEvent: null, ...options };
+
+  const db = getOpenedDB(path, ipcEvent);
+  if (!db) {
+    return;
+  }
+
+  db.close().then(err => {
+    if (err) {
+      if (ipcEvent) {
+        ipcEvent.returnValue = {
+          status: 'failed',
+          message: err.toString()
+        };
+      } else {
+        console.error(err);
+      }
+    } else {
+      if (ipcEvent) {
+        ipcEvent.returnValue = {
+          status: 'success'
+        };
+      } else {
+        console.log(`Sucessfully closed ${path}`);
+      }
+    }
+  });
+}
+
 /*
  * List the keys and values inside the leveldb database.
  */
@@ -166,6 +199,9 @@ function enableLevelDB() {
         break;
       case 'get-value':
         getValue({ ...eventParams.params, ipcEvent: event });
+        break;
+      case 'close':
+        closeDB({ ...eventParams.params, ipcEvent: event });
         break;
       default:
         event.returnValue = {
