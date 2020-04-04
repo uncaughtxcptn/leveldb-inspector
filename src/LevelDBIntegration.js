@@ -10,6 +10,17 @@ const levelOpenDefaults = {
   ipcEvent: null
 };
 
+function _handleError(err, ipcEvent) {
+  if (ipcEvent) {
+    ipcEvent.returnValue = {
+      status: 'failed',
+      message: err.toString()
+    };
+  } else {
+    console.error(err);
+  }
+}
+
 /**
  * This method will connect to a leveldb database and store a reference to dbStore.
  * Note that leveldb only allows a single connection at a time so you need to
@@ -79,28 +90,48 @@ function getOpenedDB(path, ipcEvent) {
   return db;
 }
 
-/*
+/**
+ * Close an open connection to a leveldb database
+ */
+function closeDB(options) {
+  const { path, ipcEvent } = { path: './', ipcEvent: null, ...options };
+
+  const db = getOpenedDB(path, ipcEvent);
+  if (!db) {
+    return;
+  }
+
+  db.close().then(err => {
+    if (err) {
+      _handleError(err, ipcEvent);
+    } else {
+      if (ipcEvent) {
+        ipcEvent.returnValue = {
+          status: 'success'
+        };
+      } else {
+        console.log(`Sucessfully closed ${path}`);
+      }
+    }
+  });
+}
+
+/**
  * List the keys and values inside the leveldb database.
  */
-function getKeyValues(options) {
-  const { path, ipcEvent } = { path: './', ipcEvent: null, ...options };
+function getKeyValues(params) {
+  const { path, ipcEvent, options } = { path: './', ipcEvent: null, options: {}, ...params };
   const db = getOpenedDB(path, ipcEvent);
   if (!db) {
     return;
   }
   const data = {};
-  db.createReadStream()
+  db.createReadStream(options)
     .on('data', res => {
       data[res.key] = res.value;
     })
     .on('error', function(err) {
-      console.log(err);
-      if (ipcEvent) {
-        ipcEvent.returnValue = {
-          status: 'failed',
-          message: 'Cannot fetch keys from the database.'
-        };
-      }
+      _handleError(err, ipcEvent);
     })
     .on('end', function() {
       if (ipcEvent) {
@@ -114,16 +145,16 @@ function getKeyValues(options) {
     });
 }
 
-/*
+/**
  * Get the value given the key
  */
-function getValue(options) {
-  const { path, key, ipcEvent } = { path: './', key: '', ipcEvent: null, ...options };
+function getValue(params) {
+  const { path, key, ipcEvent, options } = { path: './', key: '', ipcEvent: null, options: {}, ...params };
   const db = getOpenedDB(path, ipcEvent);
   if (!db) {
     return;
   }
-  db.get(key, function(err, value) {
+  db.get(key, options, function(err, value) {
     if (err) {
       if (err.notFound) {
         if (ipcEvent) {
@@ -134,13 +165,7 @@ function getValue(options) {
         }
         return;
       }
-      if (ipcEvent) {
-        ipcEvent.returnValue = {
-          status: 'failed',
-          message: `Failed to get ${key} in ${path}`
-        };
-      }
-      console.log(err);
+      _handleError(err, ipcEvent);
       return;
     }
 
@@ -151,6 +176,74 @@ function getValue(options) {
       };
     } else {
       console.log(`${path} -> ${key}: ${value}`);
+    }
+  });
+}
+
+/**
+ * Set the value of a given key
+ * If the key does not exist yet in the database, it will be added to the
+ * database
+ */
+function setValue(params) {
+  const { path, key, value, ipcEvent, options } = {
+    path: './',
+    key: '',
+    value: '',
+    ipcEvent: null,
+    options: {},
+    ...params
+  };
+
+  if (key === '') {
+    _handleError('Key cannot be blank', ipcEvent);
+    return;
+  }
+
+  const db = getOpenedDB(path, ipcEvent);
+  if (!db) {
+    return;
+  }
+
+  db.put(key, value, options).then(err => {
+    if (err) {
+      _handleError(err, ipcEvent);
+      return;
+    }
+
+    if (ipcEvent) {
+      ipcEvent.returnValue = {
+        status: 'success',
+        key,
+        value
+      };
+    } else {
+      console.log(`${path} -> ${key}: ${value}`);
+    }
+  });
+}
+
+/**
+ * Delete a key from the database
+ */
+function delValue(params) {
+  const { path, key, ipcEvent, options } = { path: './', key: '', ipcEvent: null, options: {}, ...params };
+  const db = getOpenedDB(path, ipcEvent);
+  if (!db) {
+    return;
+  }
+
+  db.del(key, options).then(err => {
+    if (err) {
+      _handleError(err, ipcEvent);
+    } else {
+      if (ipcEvent) {
+        ipcEvent.returnValue = {
+          status: 'success'
+        };
+      } else {
+        console.log(`Deleted ${path} -> ${key}`);
+      }
     }
   });
 }
@@ -166,6 +259,15 @@ function enableLevelDB() {
         break;
       case 'get-value':
         getValue({ ...eventParams.params, ipcEvent: event });
+        break;
+      case 'close':
+        closeDB({ ...eventParams.params, ipcEvent: event });
+        break;
+      case 'set-value':
+        setValue({ ...eventParams.params, ipcEvent: event });
+        break;
+      case 'del-value':
+        delValue({ ...eventParams.params, ipcEvent: event });
         break;
       default:
         event.returnValue = {
