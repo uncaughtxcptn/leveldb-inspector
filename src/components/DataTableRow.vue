@@ -2,9 +2,9 @@
   <tr class="data-table-row">
     <td>{{ data.key }}</td>
     <td @dblclick="startEditing">
-      <input v-if="isEditing" ref="input" type="text" v-model="value" />
+      <input v-if="isEditing" ref="input" type="text" v-model="value" @keydown.enter="stopEditing" />
       <template v-else>
-        {{ data.value }}
+        {{ value }}
       </template>
     </td>
   </tr>
@@ -32,6 +32,11 @@ export default {
       this.$nextTick(() => {
         this.$refs.input.focus();
       });
+    },
+
+    stopEditing() {
+      this.isEditing = false;
+      this.$emit('change', this.value);
     }
   }
 };

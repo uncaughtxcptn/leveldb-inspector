@@ -8,7 +8,7 @@
     </thead>
 
     <tbody>
-      <DataTableRow v-for="item in items" :key="item.key" :data="item" />
+      <DataTableRow v-for="item in items" :key="item.key" :data="item" @change="handleChange(item.key, $event)" />
 
       <tr class="spacer">
         <td></td>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import DataTableRow from '@components/DataTableRow.vue';
 
 export default {
@@ -30,6 +31,14 @@ export default {
     items: {
       type: Array,
       default: () => []
+    }
+  },
+
+  methods: {
+    ...mapActions(['setValue']),
+
+    async handleChange(key, value) {
+      await this.setValue({ key, value });
     }
   }
 };
