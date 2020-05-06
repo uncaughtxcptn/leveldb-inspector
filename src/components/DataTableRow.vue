@@ -1,7 +1,12 @@
 <template>
   <tr class="data-table-row">
     <td>{{ data.key }}</td>
-    <td>{{ data.value }}</td>
+    <td @dblclick="startEditing">
+      <input v-if="isEditing" ref="input" type="text" v-model="value" />
+      <template v-else>
+        {{ data.value }}
+      </template>
+    </td>
   </tr>
 </template>
 
@@ -11,6 +16,22 @@ export default {
     data: {
       type: Object,
       required: true
+    }
+  },
+
+  data() {
+    return {
+      isEditing: false,
+      value: this.data.value
+    };
+  },
+
+  methods: {
+    startEditing() {
+      this.isEditing = true;
+      this.$nextTick(() => {
+        this.$refs.input.focus();
+      });
     }
   }
 };
@@ -33,5 +54,14 @@ td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+input {
+  width: 100%;
+  height: 1.75em;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background-color: transparent;
 }
 </style>
