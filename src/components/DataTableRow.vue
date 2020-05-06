@@ -1,8 +1,15 @@
 <template>
-  <tr class="data-table-row">
+  <tr class="data-table-row" :class="{ editing: isEditing }">
     <td>{{ data.key }}</td>
     <td @dblclick="startEditing">
-      <input v-if="isEditing" ref="input" type="text" v-model="value" @keydown.enter="stopEditing" />
+      <input
+        v-if="isEditing"
+        ref="input"
+        type="text"
+        v-model="value"
+        @keydown.enter="stopEditing"
+        @blur="stopEditing"
+      />
       <template v-else>
         {{ value }}
       </template>
@@ -43,6 +50,10 @@ export default {
 </script>
 
 <style scoped>
+tr.editing {
+  background-color: #5482ff;
+}
+
 td:first-child {
   width: 21.67em;
   border-right: 1px solid #bbbbbb;
@@ -67,6 +78,7 @@ input {
   padding: 0;
   border: 0;
   margin: 0;
+  color: #fff;
   background-color: transparent;
 }
 </style>

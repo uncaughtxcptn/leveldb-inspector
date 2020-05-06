@@ -56,7 +56,7 @@ thead tr {
   background-color: #f2f2f2;
 }
 
-.data-table-row:nth-child(2n) {
+.data-table-row:not(.editing):nth-child(2n) {
   background-color: #f0f4ff;
 }
 
