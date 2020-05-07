@@ -14,4 +14,9 @@ body {
   min-height: 100vh;
   margin: 0;
 }
+
+input {
+  font: inherit;
+  color: inherit;
+}
 </style>

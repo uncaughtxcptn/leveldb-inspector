@@ -8,10 +8,7 @@
     </thead>
 
     <tbody>
-      <tr v-for="item in items" :key="item.key">
-        <td>{{ item.key }}</td>
-        <td>{{ item.value }}</td>
-      </tr>
+      <DataTableRow v-for="item in items" :key="item.key" :data="item" @change="handleChange(item.key, $event)" />
 
       <tr class="spacer">
         <td></td>
@@ -22,11 +19,26 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import DataTableRow from '@components/DataTableRow.vue';
+
 export default {
+  components: {
+    DataTableRow
+  },
+
   props: {
     items: {
       type: Array,
       default: () => []
+    }
+  },
+
+  methods: {
+    ...mapActions(['setValue']),
+
+    async handleChange(key, value) {
+      await this.setValue({ key, value });
     }
   }
 };
@@ -44,7 +56,7 @@ thead tr {
   background-color: #f2f2f2;
 }
 
-tbody tr:nth-child(2n) {
+.data-table-row:not(.editing):nth-child(2n) {
   background-color: #f0f4ff;
 }
 
@@ -52,8 +64,7 @@ th {
   font-weight: 400;
 }
 
-th,
-td {
+th {
   height: 2.67em;
   padding: 0 2em;
 

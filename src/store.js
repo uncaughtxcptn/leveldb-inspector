@@ -23,6 +23,10 @@ const mutations = {
 
   setData(state, data) {
     state.data = data;
+  },
+
+  setValue(state, { key, value }) {
+    state.data = state.data.map(item => (item.key === key ? { key, value } : item));
   }
 };
 
@@ -60,6 +64,24 @@ const actions = {
     forIn(data, (value, key) => keyValues.push({ key, value }));
 
     commit('setData', keyValues);
+    return { success: true, data };
+  },
+
+  setValue({ state, commit }, { key, value }) {
+    const { status, data, message } = ipcRenderer.sendSync('leveldb-command', {
+      command: 'set-value',
+      params: {
+        key,
+        value,
+        path: state.path
+      }
+    });
+
+    if (status === 'failed') {
+      return { success: false, error: message };
+    }
+
+    commit('setValue', data);
     return { success: true, data };
   }
 };
