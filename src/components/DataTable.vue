@@ -8,7 +8,13 @@
     </thead>
 
     <tbody>
-      <DataTableRow v-for="item in items" :key="item.key" :data="item" @change="handleChange(item.key, $event)" />
+      <DataTableRow
+        v-for="item in items"
+        :key="item.key"
+        :data="item"
+        @change="setValue({ key: item.key, value: $event })"
+        @delete="deleteKey(item.key)"
+      />
 
       <tr class="spacer">
         <td></td>
@@ -34,13 +40,7 @@ export default {
     }
   },
 
-  methods: {
-    ...mapActions(['setValue']),
-
-    async handleChange(key, value) {
-      await this.setValue({ key, value });
-    }
-  }
+  methods: mapActions(['setValue', 'deleteKey'])
 };
 </script>
 

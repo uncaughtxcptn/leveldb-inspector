@@ -27,6 +27,10 @@ const mutations = {
 
   setValue(state, { key, value }) {
     state.data = state.data.map(item => (item.key === key ? { key, value } : item));
+  },
+
+  deleteKey(state, key) {
+    state.data = state.data.filter(item => item.key !== key);
   }
 };
 
@@ -82,6 +86,23 @@ const actions = {
     }
 
     commit('setValue', data);
+    return { success: true, data };
+  },
+
+  deleteKey({ state, commit }, key) {
+    const { status, data, message } = ipcRenderer.sendSync('leveldb-command', {
+      command: 'del-value',
+      params: {
+        key,
+        path: state.path
+      }
+    });
+
+    if (status === 'failed') {
+      return { success: false, error: message };
+    }
+
+    commit('deleteKey', key);
     return { success: true, data };
   }
 };
