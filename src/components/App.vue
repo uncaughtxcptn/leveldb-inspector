@@ -10,9 +10,11 @@
 }
 
 body {
-  font-family: 'Fira Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   min-height: 100vh;
   margin: 0;
+
+  font-family: 'Fira Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  color: #333;
 }
 
 input {

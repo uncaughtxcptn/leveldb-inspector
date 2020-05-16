@@ -26,7 +26,12 @@ const mutations = {
   },
 
   setValue(state, { key, value }) {
-    state.data = state.data.map(item => (item.key === key ? { key, value } : item));
+    const index = state.data.findIndex(item => item.key === key);
+    if (index < 0) {
+      state.data = state.data.concat([{ key, value }]);
+    } else {
+      state.data = state.data.map(item => (item.key === key ? { key, value } : item));
+    }
   },
 
   deleteKey(state, key) {
@@ -72,7 +77,7 @@ const actions = {
   },
 
   setValue({ state, commit }, { key, value }) {
-    const { status, data, message } = ipcRenderer.sendSync('leveldb-command', {
+    const { status, message } = ipcRenderer.sendSync('leveldb-command', {
       command: 'set-value',
       params: {
         key,
@@ -85,6 +90,7 @@ const actions = {
       return { success: false, error: message };
     }
 
+    const data = { key, value };
     commit('setValue', data);
     return { success: true, data };
   },

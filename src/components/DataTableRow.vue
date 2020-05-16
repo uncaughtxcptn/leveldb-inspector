@@ -90,7 +90,6 @@ input {
   padding: 0;
   border: 0;
   margin: 0;
-  color: #fff;
   background-color: transparent;
 }
 
