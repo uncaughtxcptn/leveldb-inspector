@@ -26,11 +26,11 @@ const mutations = {
   },
 
   setValue(state, { key, value }) {
-    const index = state.data.findIndex(item => item.key === key);
-    if (index < 0) {
-      state.data = state.data.concat([{ key, value }]);
-    } else {
+    const item = state.data.find(item => item.key === key);
+    if (item) {
       state.data = state.data.map(item => (item.key === key ? { key, value } : item));
+    } else {
+      state.data = state.data.concat([{ key, value }]);
     }
   },
 

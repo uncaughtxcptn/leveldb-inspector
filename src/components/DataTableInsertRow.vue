@@ -1,10 +1,11 @@
 <template>
-  <tr class="data-table-insert-row">
+  <tr class="data-table-insert-row" :class="{ creating: isCreating }">
     <td class="key-column" @click="startCreating('keyInput')">
       <input
         v-if="isCreating"
         ref="keyInput"
         type="text"
+        placeholder="Enter key"
         v-model="key"
         @keydown.enter="stopCreating"
         @keydown.esc="stopCreating(false)"
@@ -17,6 +18,7 @@
         v-if="isCreating"
         ref="valueInput"
         type="text"
+        placeholder="Enter value"
         v-model="value"
         @keydown.enter="stopCreating"
         @keydown.esc="stopCreating(false)"
@@ -76,7 +78,6 @@ td:first-child {
 
 td {
   height: 2.67em;
-  padding: 0 2em;
   border-top: 1px solid #bbb;
 
   font-size: 0.75em;
@@ -89,13 +90,17 @@ td {
   text-overflow: ellipsis;
 }
 
+tr:not(.creating) td {
+  padding: 0 2em;
+}
+
 input {
   width: 100%;
-  height: 1.75em;
-  padding: 0;
+  height: 2.67em;
+  padding: 0 2em;
   border: 0;
   margin: 0;
-  background-color: transparent;
+  background-color: #fff;
 }
 
 .key-column {
