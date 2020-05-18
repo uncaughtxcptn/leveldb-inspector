@@ -20,6 +20,8 @@
         <td></td>
         <td></td>
       </tr>
+
+      <DataTableInsertRow @create="setValue" />
     </tbody>
   </table>
 </template>
@@ -27,10 +29,12 @@
 <script>
 import { mapActions } from 'vuex';
 import DataTableRow from '@components/DataTableRow.vue';
+import DataTableInsertRow from '@components/DataTableInsertRow.vue';
 
 export default {
   components: {
-    DataTableRow
+    DataTableRow,
+    DataTableInsertRow
   },
 
   props: {

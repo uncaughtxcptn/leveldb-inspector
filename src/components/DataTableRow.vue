@@ -22,7 +22,7 @@
         @blur="stopEditing"
       />
       <template v-else>
-        {{ value }}
+        {{ data.value }}
       </template>
     </td>
   </tr>
@@ -40,12 +40,16 @@ export default {
   data() {
     return {
       isEditing: false,
-      value: this.data.value
+      value: ''
     };
   },
 
   methods: {
     startEditing() {
+      if (this.isEditing) {
+        return;
+      }
+      this.value = this.data.value;
       this.isEditing = true;
       this.$nextTick(() => {
         this.$refs.input.focus();
@@ -53,8 +57,12 @@ export default {
     },
 
     stopEditing() {
-      this.isEditing = false;
+      if (!this.isEditing) {
+        return;
+      }
       this.$emit('change', this.value);
+      this.value = '';
+      this.isEditing = false;
     }
   }
 };
@@ -90,7 +98,6 @@ input {
   padding: 0;
   border: 0;
   margin: 0;
-  color: #fff;
   background-color: transparent;
 }
 
