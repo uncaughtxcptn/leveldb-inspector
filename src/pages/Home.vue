@@ -55,6 +55,7 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
+  min-height: 100vh;
   text-align: center;
 }
 
@@ -118,11 +119,8 @@ button {
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
-
-  padding-bottom: 2em;
-
+  padding: 2em 0;
+  margin-top: auto;
   color: lightgray;
 }
 </style>
