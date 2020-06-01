@@ -21,7 +21,7 @@
         <td></td>
       </tr>
 
-      <DataTableInsertRow @create="setValue" />
+      <DataTableInsertRow @create="handleCreate" />
     </tbody>
   </table>
 </template>
@@ -44,7 +44,17 @@ export default {
     }
   },
 
-  methods: mapActions(['setValue', 'deleteKey'])
+  methods: {
+    ...mapActions(['setValue', 'deleteKey']),
+
+    async handleCreate(data) {
+      await this.setValue(data);
+
+      // Scroll to last row in the table
+      const element = document.scrollingElement;
+      element.scrollTop = element.scrollHeight;
+    }
+  }
 };
 </script>
 
