@@ -1,7 +1,7 @@
 <template>
   <main>
     <header>
-      <div class="logo"></div>
+      <img class="logo" src="@images/logo.png" alt="leveldb-inspector logo" />
     </header>
     <form @submit.prevent="connect">
       <p>Select path to LevelDB</p>
@@ -62,9 +62,8 @@ main {
 .logo {
   width: 150px;
   height: 150px;
-  background-color: #f7f7f7;
   border-radius: 100%;
-  margin: 100px auto;
+  margin: 60px auto;
 }
 
 form {
