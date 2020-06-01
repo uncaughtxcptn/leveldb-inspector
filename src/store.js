@@ -59,7 +59,7 @@ const actions = {
 
   disconnectFromDatabase({ commit, state }) {
     const { status, message } = ipcRenderer.sendSync('leveldb-command', {
-      command: 'disconnect',
+      command: 'close',
       params: {
         path: state.path
       }
