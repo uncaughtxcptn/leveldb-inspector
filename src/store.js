@@ -57,6 +57,22 @@ const actions = {
     return { success: true };
   },
 
+  disconnectFromDatabase({ commit, state }) {
+    const { status, message } = ipcRenderer.sendSync('leveldb-command', {
+      command: 'disconnect',
+      params: {
+        path: state.path
+      }
+    });
+
+    if (status === 'failed') {
+      return { success: false, error: message };
+    }
+    commit('setPath', null);
+    commit('setData', []);
+    return { success: true };
+  },
+
   getDatabaseContents({ state, commit }) {
     const { status, data, message } = ipcRenderer.sendSync('leveldb-command', {
       command: 'get-key-values',
