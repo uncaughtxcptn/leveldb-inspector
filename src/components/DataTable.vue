@@ -53,11 +53,7 @@ table {
   width: 100%;
   min-height: 100vh;
   border-collapse: collapse;
-}
-
-thead tr {
-  border-bottom: 1px solid #bbbbbb;
-  background-color: #f2f2f2;
+  position: relative;
 }
 
 .data-table-row:not(.editing):nth-child(2n) {
@@ -65,20 +61,20 @@ thead tr {
 }
 
 th {
-  font-weight: 400;
-}
-
-th {
   height: 2.67em;
   padding: 0 2em;
 
   font-size: 0.75em;
+  font-weight: 400;
   text-align: left;
 
-  max-width: 0; /* required for ellipsis overflow to work */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  /* Here we're using an inset shadow instead of a bottom border to achieve the
+     same effect. This is to prevent the border from disappearing when the
+     table cells become sticky. */
+  box-shadow: inset 0 -1px 0 0 #bbbbbb;
 }
 
 th:first-child,
