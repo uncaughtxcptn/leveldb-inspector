@@ -7,7 +7,7 @@
       <p>Select path to LevelDB</p>
       <div class="file" tabindex="0" @click="selectPath" @keyup.enter="selectPath">
         <input type="text" id="file" :value="path" tabindex="-1" readonly />
-        <button tabindex="-1">Choose</button>
+        <button type="button" tabindex="-1">Choose</button>
       </div>
       <button>Inspect</button>
     </form>
