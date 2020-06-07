@@ -78,16 +78,22 @@ td:first-child {
 
 td {
   height: 2.67em;
-  border-top: 1px solid #bbb;
 
   font-size: 0.75em;
   text-align: left;
-  background-color: #f2f2f2;
 
   max-width: 0; /* required for ellipsis overflow to work */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  position: sticky;
+  bottom: 0;
+  background-color: #f2f2f2;
+  /* Here we're using an inset shadow instead of a top border to achieve the
+     same effect. This is to prevent the border from disappearing when the
+     table cells become sticky. */
+  box-shadow: inset 0 1px 0 0 #bbbbbb;
 }
 
 tr:not(.creating) td {
