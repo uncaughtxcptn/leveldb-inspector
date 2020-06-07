@@ -17,11 +17,6 @@ body {
   color: #333;
 }
 
-input {
-  font: inherit;
-  color: inherit;
-}
-
 input,
 button {
   font: inherit;
