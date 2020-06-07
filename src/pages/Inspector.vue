@@ -41,10 +41,11 @@ export default {
 
 <style scoped>
 header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
   height: 2em;
   text-align: right;
 }
