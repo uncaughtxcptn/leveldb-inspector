@@ -17,7 +17,8 @@ body {
   color: #333;
 }
 
-input {
+input,
+button {
   font: inherit;
   color: inherit;
 }

@@ -1,14 +1,14 @@
 <template>
   <main>
     <header>
-      <div class="logo"></div>
+      <img class="logo" src="@images/logo.png" alt="leveldb-inspector logo" />
     </header>
     <form @submit.prevent="connect">
       <p>Select path to LevelDB</p>
-      <label class="file db-path">
-        <input type="text" id="file" webkitdirectory />
-        <span class="file-custom" @click="selectPath">{{ path }}</span>
-      </label>
+      <div class="file" tabindex="0" @click="selectPath" @keyup.enter="selectPath">
+        <input type="text" id="file" :value="path" tabindex="-1" readonly />
+        <button type="button" tabindex="-1">Choose</button>
+      </div>
       <button>Inspect</button>
     </form>
     <footer>Copyright {{ new Date().getFullYear() }} • UncaughtException</footer>
@@ -55,15 +55,15 @@ main {
   display: flex;
   align-items: center;
   flex-direction: column;
+  min-height: 100vh;
   text-align: center;
 }
 
 .logo {
   width: 150px;
   height: 150px;
-  background-color: #f7f7f7;
   border-radius: 100%;
-  margin: 100px auto;
+  margin: 60px auto;
 }
 
 form {
@@ -72,60 +72,9 @@ form {
   flex-direction: column;
 }
 
-.file {
-  position: relative;
-  display: inline-block;
+input,
+button {
   cursor: pointer;
-  height: 2.5em;
-}
-
-.file input {
-  min-width: 35em;
-  margin: 0;
-  opacity: 0;
-}
-
-.file-custom {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 5;
-  height: 2.5em;
-  padding: 0.5em 1em;
-  line-height: 1.5;
-  color: #555;
-  background-color: #fff;
-  border: 0.075em solid #ddd;
-  border-radius: 0.25em;
-  box-shadow: inset 0 0.2em 0.4em rgba(0, 0, 0, 0.05);
-  user-select: none;
-}
-
-.file-custom::before {
-  position: absolute;
-  top: -0.075em;
-  right: -0.075em;
-  bottom: -0.075em;
-  z-index: 6;
-  display: block;
-  content: 'Choose';
-  height: 2.5em;
-  padding: 0.5em 1em;
-  line-height: 1.5;
-  color: #555;
-  background-color: #fff;
-  border: 0.075em solid #ddd;
-  border-radius: 0 0.35em 0.35em 0;
-}
-
-/* Focus */
-.file input:focus ~ .file-custom {
-  box-shadow: 0 0 0 0.075em #fff, 0 0 0 0.2em #0074d9;
-}
-
-.db-path {
-  margin-bottom: 2em;
 }
 
 button {
@@ -138,12 +87,39 @@ button {
   border-radius: 0.35em;
 }
 
+.file {
+  display: flex;
+  margin-bottom: 2em;
+  border-radius: 0.35em;
+}
+
+.file > *:focus {
+  outline: none;
+}
+
+.file > input {
+  width: 25em;
+  padding: 0.5em 1em;
+
+  border: 0.075em solid #ddd;
+  border-right-style: hidden;
+  border-radius: 0.35em 0 0 0.35em;
+  box-shadow: inset 0 0.2em 0.4em rgba(0, 0, 0, 0.05);
+
+  user-select: none;
+}
+
+.file > button {
+  padding: 0.5em 1em;
+  color: #555;
+  background-color: #fff;
+  border: 0.075em solid #ddd;
+  border-radius: 0 0.35em 0.35em 0;
+}
+
 footer {
-  position: absolute;
-  bottom: 0;
-
-  padding-bottom: 2em;
-
+  padding: 2em 0;
+  margin-top: auto;
   color: lightgray;
 }
 </style>
