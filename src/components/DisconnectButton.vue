@@ -15,5 +15,7 @@ button {
   color: #d32f2f;
   background: none;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 </style>
