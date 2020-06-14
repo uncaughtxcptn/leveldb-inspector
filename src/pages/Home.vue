@@ -11,6 +11,7 @@
       </div>
       <button>Inspect</button>
     </form>
+    <RecentlyOpened v-on:selected="openPath" />
     <footer>Copyright {{ new Date().getFullYear() }} • UncaughtException</footer>
   </main>
 </template>
@@ -18,8 +19,13 @@
 <script>
 import { remote } from 'electron';
 import { mapActions } from 'vuex';
+import RecentlyOpened from '@components/RecentlyOpened.vue';
 
 export default {
+  components: {
+    RecentlyOpened
+  },
+
   data() {
     return {
       path: ''
@@ -27,13 +33,14 @@ export default {
   },
 
   methods: {
-    ...mapActions(['connectToDatabase']),
+    ...mapActions(['connectToDatabase', 'addToRecentlyOpened']),
 
     async connect() {
       const { error } = await this.connectToDatabase(this.path);
       if (error) {
         alert(error);
       } else {
+        this.addToRecentlyOpened(this.path);
         this.$router.push('/inspector');
       }
     },
@@ -45,6 +52,11 @@ export default {
       path.then(e => {
         this.path = e.filePaths[0];
       });
+    },
+
+    openPath(path) {
+      this.path = path;
+      this.connect();
     }
   }
 };

@@ -126,6 +126,22 @@ const actions = {
 
     commit('deleteKey', key);
     return { success: true, data };
+  },
+
+  getRecentlyOpened({ state, commit }) {
+    const storedData = window.localStorage.getItem('recentlyOpened');
+    if (storedData) {
+      return JSON.parse(storedData);
+    }
+    return [];
+  },
+
+  addToRecentlyOpened({ state, commit, dispatch }, path) {
+    dispatch('getRecentlyOpened').then(paths => {
+      const newPaths = paths.filter(p => p != path);
+      newPaths.unshift(path);
+      window.localStorage.setItem('recentlyOpened', JSON.stringify(newPaths));
+    });
   }
 };
 
