@@ -10,29 +10,30 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
-  data() {
-    return {
-      paths: []
-    };
+  methods: {
+    ...mapActions(['populateRecentlyOpened'])
   },
+
   created() {
-    this.getRecentlyOpened().then(paths => {
-      paths = paths.splice(0, 2); // show only 2 paths
-      this.paths = paths.map(path => {
+    this.populateRecentlyOpened();
+  },
+
+  computed: {
+    ...mapState(['recentlyOpenedPaths']),
+
+    paths() {
+      const pathsToDisplay = this.recentlyOpenedPaths.slice(0, 2); // show only 2 paths
+      return pathsToDisplay.map(path => {
         const parts = path.split('/');
         return {
           path,
           display: parts[parts.length - 1]
         };
       });
-    });
-  },
-
-  methods: {
-    ...mapActions(['getRecentlyOpened'])
+    }
   }
 };
 </script>
