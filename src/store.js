@@ -7,7 +7,8 @@ Vue.use(Vuex);
 
 const state = {
   path: null,
-  data: []
+  data: [],
+  recentlyOpenedPaths: []
 };
 
 const getters = {
@@ -36,6 +37,10 @@ const mutations = {
 
   deleteKey(state, key) {
     state.data = state.data.filter(item => item.key !== key);
+  },
+
+  setRecentlyOpenedPaths(state, paths) {
+    state.recentlyOpenedPaths = paths;
   }
 };
 
@@ -128,20 +133,17 @@ const actions = {
     return { success: true, data };
   },
 
-  getRecentlyOpened({ state, commit }) {
+  populateRecentlyOpened({ commit }) {
     const storedData = window.localStorage.getItem('recentlyOpened');
     if (storedData) {
-      return JSON.parse(storedData);
+      commit('setRecentlyOpenedPaths', JSON.parse(storedData));
     }
-    return [];
   },
 
-  addToRecentlyOpened({ state, commit, dispatch }, path) {
-    dispatch('getRecentlyOpened').then(paths => {
-      const newPaths = paths.filter(p => p != path);
-      newPaths.unshift(path);
-      window.localStorage.setItem('recentlyOpened', JSON.stringify(newPaths));
-    });
+  addToRecentlyOpened({ commit, state }, path) {
+    const newPaths = [path, ...state.recentlyOpenedPaths.filter(p => p != path)];
+    window.localStorage.setItem('recentlyOpened', JSON.stringify(newPaths));
+    commit('setRecentlyOpenedPaths', newPaths);
   }
 };
 
