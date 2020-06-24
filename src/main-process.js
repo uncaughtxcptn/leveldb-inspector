@@ -3,6 +3,7 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import { enableLevelDB } from './LevelDBIntegration';
 
+autoUpdater.allowPrerelease = true;
 autoUpdater.checkForUpdatesAndNotify();
 
 function createWindow() {
