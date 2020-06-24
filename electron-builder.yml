@@ -9,10 +9,14 @@ files:
   - dist
   - package.json
   - src/images/logo.icns
+  - src/images/logo.ico
 
 mac:
   category: public.app-category.developer-tools
   icon: src/images/logo.icns
+
+win:
+  icon: src/images/logo.ico
 
 publish:
   provider: github
