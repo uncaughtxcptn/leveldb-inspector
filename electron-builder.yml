@@ -1,0 +1,15 @@
+appId: app.patootie.leveldb-inspector
+productName: LevelDB Inspector
+copyright: Copyright © 2020 UncaughtException
+
+directories:
+  output: build
+
+files:
+  - dist
+  - package.json
+  - src/images/logo.icns
+
+mac:
+  category: public.app-category.developer-tools
+  icon: src/images/logo.icns
