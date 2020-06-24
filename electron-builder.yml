@@ -13,3 +13,6 @@ files:
 mac:
   category: public.app-category.developer-tools
   icon: src/images/logo.icns
+
+publish:
+  provider: github
