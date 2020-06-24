@@ -2,7 +2,7 @@
   <div class="recently-opened">
     <span>Recently Opened:</span>
     <div class="recent-items">
-      <a v-for="path in paths" v-bind:title="path.path" :key="path.path" @click="$emit('selected', path.path)">
+      <a v-for="path in paths" :title="path.path" :key="path.path" @click="$emit('selected', path.path)">
         {{ path.display }}
       </a>
     </div>
