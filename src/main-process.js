@@ -1,6 +1,9 @@
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import { enableLevelDB } from './LevelDBIntegration';
+
+autoUpdater.checkForUpdatesAndNotify();
 
 function createWindow() {
   let win = new BrowserWindow({
