@@ -1,6 +1,6 @@
 {
   "name": "leveldb-inspector",
-  "version": "0.2.0-alpha.2",
+  "version": "0.2.0",
   "description": "A user interface for interacting with LevelDB databases",
   "main": "dist/main-process.js",
   "scripts": {
