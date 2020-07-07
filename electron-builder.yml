@@ -18,8 +18,6 @@ mac:
   entitlements: resources/entitlements.mac.plist
   entitlementsInherit: resources/entitlements.inherit.plist
   provisioningProfile: embedded.provisionprofile
-  hardenedRuntime: false
-  gatekeeperAssess: false
   icon: resources/logo.icns
   target:
     - dmg
@@ -28,11 +26,6 @@ mac:
 
 mas:
   type: distribution
-  category: public.app-category.developer-tools
-  entitlements: resources/entitlements.mac.plist
-  entitlementsInherit: resources/entitlements.inherit.plist
-  provisioningProfile: embedded.provisionprofile
-  icon: resources/logo.icns
 
 win:
   icon: resources/logo.ico
