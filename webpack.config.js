@@ -28,7 +28,7 @@ const commonRules = [
 const mainProcessConfig = {
   entry: './src/main-process.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'main-process.js'
   },
   target: 'node',
@@ -45,7 +45,7 @@ const mainProcessConfig = {
 const rendererProcessConfig = {
   entry: './src/renderer-process.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'renderer-process.js'
   },
   mode,

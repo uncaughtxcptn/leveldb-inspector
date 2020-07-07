@@ -3,21 +3,21 @@ productName: LevelDB Inspector
 copyright: Copyright © 2020 UncaughtException
 
 directories:
-  output: build
+  output: dist
+  buildResources: resources
 
 files:
-  - dist
+  - build
   - package.json
-  - src/images/logo.icns
-  - src/images/logo.ico
-  - leveldb-inspector.provisionprofile
+  - resources/logo.icns
+  - resources/logo.ico
+  - embedded.provisionprofile
 
 mac:
   category: public.app-category.developer-tools
-  entitlements: entitlements.mac.plist
-  icon: src/images/logo.icns
+  entitlements: resources/entitlements.mac.plist
+  icon: resources/logo.icns
   target:
-    - pkg
     - dmg
     - zip
     - mas
@@ -25,11 +25,11 @@ mac:
 mas:
   type: distribution
   category: public.app-category.developer-tools
-  entitlements: entitlements.mas.plist
-  icon: src/images/logo.icns
+  entitlements: resources/entitlements.mas.plist
+  icon: resources/logo.icns
 
 win:
-  icon: src/images/logo.ico
+  icon: resources/logo.ico
 
 publish:
   provider: github
