@@ -24,6 +24,9 @@ mac:
     - zip
     - mas
 
+dmg:
+  sign: false
+
 mas:
   type: distribution
   category: public.app-category.developer-tools
