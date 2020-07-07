@@ -10,9 +10,22 @@ files:
   - package.json
   - src/images/logo.icns
   - src/images/logo.ico
+  - leveldb-inspector.provisionprofile
 
 mac:
   category: public.app-category.developer-tools
+  entitlements: entitlements.mac.plist
+  icon: src/images/logo.icns
+  target:
+    - pkg
+    - dmg
+    - zip
+    - mas
+
+mas:
+  type: distribution
+  category: public.app-category.developer-tools
+  entitlements: entitlements.mas.plist
   icon: src/images/logo.icns
 
 win:

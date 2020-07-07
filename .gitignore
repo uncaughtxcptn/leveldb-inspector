@@ -4,3 +4,6 @@ build
 
 .env.sh
 .DS_Store
+
+*.p12
+*.provisionprofile
