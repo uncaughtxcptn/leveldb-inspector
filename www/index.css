@@ -1,0 +1,108 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.8rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2d3748;
+  background: linear-gradient(to bottom, #fff 0, #fff 36rem, #f7fafc 36rem, #f7fafc 100%);
+}
+
+a {
+  font: inherit;
+  color: inherit;
+}
+
+.wrapper {
+  max-width: 144rem;
+  margin: 0 auto;
+}
+
+.header {
+  padding: 6.4rem 0;
+  text-align: center;
+}
+
+.header .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 6.4rem;
+}
+
+.header .app-name {
+  display: inline-flex;
+  align-items: center;
+}
+
+.header .app-name div {
+  text-align: initial;
+}
+
+.header img {
+  width: 8rem;
+  height: 8rem;
+  margin-right: 2.4rem;
+}
+
+.header h1 {
+  font-size: 3rem;
+}
+
+.header p {
+  font-size: 2rem;
+}
+
+.header .links {
+  margin: 1rem 0;
+  font-size: 0;
+}
+
+.header .links a {
+  display: inline-block;
+  padding: 0 2rem;
+  border-radius: 2rem;
+  margin: 0 4px;
+  font-size: 1.5rem;
+  line-height: 4rem;
+  text-decoration: none;
+  background-color: #edf2f7;
+}
+
+.header .links a.download-link {
+  color: #fff;
+  background-color: #469a51;
+}
+
+.preview {
+  display: flex;
+}
+
+.preview img {
+  width: 50%;
+  flex: 1 1 0;
+  margin: 0 auto;
+}
+
+.footer {
+  padding: 1.8rem;
+  margin-top: auto;
+  text-align: center;
+  color: #fff;
+  background-color: #2d3748;
+}
