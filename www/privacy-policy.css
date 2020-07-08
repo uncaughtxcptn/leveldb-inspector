@@ -1,0 +1,26 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.7rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2d3748;
+}
+
+.wrapper {
+  max-width: 80rem;
+  padding: 6.4rem 2.4rem;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-top: 2em;
+}
+
+p {
+  line-height: 2.8rem;
+}
